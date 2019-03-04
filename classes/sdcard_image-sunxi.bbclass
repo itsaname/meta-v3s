@@ -30,11 +30,7 @@ IMAGE_ROOTFS_ALIGNMENT = "2048"
 # Use an uncompressed ext4 by default as rootfs
 SDIMG_ROOTFS_TYPE ?= "ext4"
 ########################################################################
-<<<<<<< HEAD
 touch ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}
-=======
-mkdir ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}
->>>>>>> 9db11bec9cc262dc8435a6c15b93ab5074af37cf
 ########################################################################
 SDIMG_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
 
