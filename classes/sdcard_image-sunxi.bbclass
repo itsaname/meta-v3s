@@ -60,12 +60,8 @@ IMAGE_CMD_sunxi-sdimg () {
 	# Initialize sdcard image file
 	dd if=/dev/zero of=${SDIMG} bs=1 count=0 seek=$(expr 1024 \* ${SDIMG_SIZE})
 	####################################################################
-	#dd if=/dev/zero of=${SDIMG} seek=$ROOTFS_SIZE count=$COUNT bs=1024
 	mkfs.${SDIMG_ROOTFS_TYPE} -F ${SDIMG} -d ${IMAGE_ROOTFS}
 	cp ${SDIMG} ${SDIMG_ROOTFS}
-	#################################################
-	#mkfs.${SDIMG_ROOTFS_TYPE} -F ${IMGDEPLOYDIR}/${IMAGE_NAME}.${SDIMG_ROOTFS_TYPE} -d ${IMAGE_ROOTFS}
-	#cp ${IMGDEPLOYDIR}/${IMAGE_NAME}.${SDIMG_ROOTFS_TYPE} ${SDIMG_ROOTFS}
 	####################################################################
 
 
