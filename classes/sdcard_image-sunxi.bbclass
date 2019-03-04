@@ -46,11 +46,14 @@ IMAGE_CMD_sunxi-sdimg () {
 
 	# Align partitions
 	BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} + ${IMAGE_ROOTFS_ALIGNMENT} - 1)
-	echo "BOOT_SPACE_ALIGNED: ${BOOT_SPACE_ALIGNED}" > /home/fanning/Desktop/fuck.txt
+	# echo "BOOT_SPACE_ALIGNED: ${BOOT_SPACE_ALIGNED}" > /home/fanning/Desktop/fuck.txt
+	echo "BOOT_SPACE_ALIGNED: ${BOOT_SPACE_ALIGNED}"
 	BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE_ALIGNED} - ${BOOT_SPACE_ALIGNED} % ${IMAGE_ROOTFS_ALIGNMENT})
-	echo "BOOT_SPACE_ALIGNED: ${BOOT_SPACE_ALIGNED}" >> /home/fanning/Desktop/fuck.txt
+	# echo "BOOT_SPACE_ALIGNED: ${BOOT_SPACE_ALIGNED}" >> /home/fanning/Desktop/fuck.txt
+	echo "BOOT_SPACE_ALIGNED: ${BOOT_SPACE_ALIGNED}"
 	SDIMG_SIZE=$(expr ${IMAGE_ROOTFS_ALIGNMENT} + ${BOOT_SPACE_ALIGNED} + $ROOTFS_SIZE + ${IMAGE_ROOTFS_ALIGNMENT})
-	echo "SDIMG_SIZE: ${SDIMG_SIZE}" >> /home/fanning/Desktop/fuck.txt
+	# echo "SDIMG_SIZE: ${SDIMG_SIZE}" >> /home/fanning/Desktop/fuck.txt
+	echo "SDIMG_SIZE: ${SDIMG_SIZE}"
 
 	# Initialize sdcard image file
 	dd if=/dev/zero of=${SDIMG} bs=1 count=0 seek=$(expr 1024 \* ${SDIMG_SIZE})
@@ -63,9 +66,10 @@ IMAGE_CMD_sunxi-sdimg () {
 	# Create rootfs partition
 	parted -s ${SDIMG} unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${ROOTFS_SIZE})
 	parted ${SDIMG} print
-	
-	echo "ROOTFS_SIZE: ${ROOTFS_SIZE}" >> /home/fanning/Desktop/fuck.txt
-	
+
+	# echo "ROOTFS_SIZE: ${ROOTFS_SIZE}" >> /home/fanning/Desktop/fuck.txt
+	echo "ROOTFS_SIZE: ${ROOTFS_SIZE}"
+
 	echo "SUM rootfs: $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${ROOTFS_SIZE})" >> /home/fanning/Desktop/fuck.txt
 
 	# Create a vfat image with boot files
@@ -74,10 +78,11 @@ IMAGE_CMD_sunxi-sdimg () {
 	mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img $BOOT_BLOCKS
 
 	mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ::${KERNEL_IMAGETYPE}
-	
+
 	# Copy device tree file
-	
-	echo "COPY DEVICE TREE" >> /home/fanning/Desktop/fuck.txt
+
+	# echo "COPY DEVICE TREE" >> /home/fanning/Desktop/fuck.txt
+	echo "COPY DEVICE TREE"
 	mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/sun8i-v3s-licheepi-zero.dtb ::sun8i-v3s-licheepi-zero.dtb
 	mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/sun8i-v3s-licheepi-zero-dock.dtb ::sun8i-v3s-licheepi-zero-dock.dtb
 
@@ -85,14 +90,16 @@ IMAGE_CMD_sunxi-sdimg () {
 	then
 		mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/u-boot.bin ::u-boot.bin
 	fi
-	
+
 	if [ -e "${DEPLOY_DIR_IMAGE}/boot.scr" ]
 	then
 		mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.scr ::
-		echo "Co file boot.scr" >> /home/fanning/Desktop/fuck.txt
+		# echo "Co file boot.scr" >> /home/fanning/Desktop/fuck.txt
+		echo "Co file boot.scr"
 	else
 		echo "Please run command: bitbake v3s-u-boot-scr"
-		echo "Deo Co file boot.scr" >> /home/fanning/Desktop/fuck.txt
+		# echo "Deo Co file boot.scr" >> /home/fanning/Desktop/fuck.txt
+		echo "Deo Co file boot.scr"
 		bbfatal "Please run command: bitbake v3s-u-boot-scr"
 	fi
 
