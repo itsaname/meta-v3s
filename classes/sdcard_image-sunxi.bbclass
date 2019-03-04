@@ -70,7 +70,8 @@ IMAGE_CMD_sunxi-sdimg () {
 	# echo "ROOTFS_SIZE: ${ROOTFS_SIZE}" >> /home/fanning/Desktop/fuck.txt
 	echo "ROOTFS_SIZE: ${ROOTFS_SIZE}"
 
-	echo "SUM rootfs: $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${ROOTFS_SIZE})" >> /home/fanning/Desktop/fuck.txt
+	# echo "SUM rootfs: $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${ROOTFS_SIZE})" >> /home/fanning/Desktop/fuck.txt
+  echo "SUM rootfs: $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${ROOTFS_SIZE})"
 
 	# Create a vfat image with boot files
 	BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDIMG} unit b print | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 512 /2 }')
