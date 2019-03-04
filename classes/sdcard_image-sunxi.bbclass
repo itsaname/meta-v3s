@@ -31,8 +31,10 @@ IMAGE_ROOTFS_ALIGNMENT = "2048"
 SDIMG_ROOTFS_TYPE ?= "ext4"
 SDIMG_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
 #####################################################
-echo "Create new test file: ${SDIMG_ROOTFS}"
-touch ${SDIMG_ROOTFS}
+# Create a sparse image block
+dd if=/dev/zero of=${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.$fstype seek=$ROOTFS_SIZE count=$COUNT bs=1024
+mkfs.$fstype -F $extra_imagecmd ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.$fstype -d ${IMAGE_ROOTFS}
+cp ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.$fstype ${SDIMG_ROOTFS}
 #####################################################
 do_image_sunxi_sdimg[depends] += " \
 			parted-native:do_populate_sysroot \
