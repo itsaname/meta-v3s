@@ -29,11 +29,11 @@ IMAGE_ROOTFS_ALIGNMENT = "2048"
 
 # Use an uncompressed ext4 by default as rootfs
 SDIMG_ROOTFS_TYPE ?= "ext4"
-########################################################################
-touch "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
-########################################################################
 SDIMG_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
-
+#####################################################
+echo "Create new test file: $SDIMG_ROOTFS"
+touch $SDIMG_ROOTFS
+#####################################################
 do_image_sunxi_sdimg[depends] += " \
 			parted-native:do_populate_sysroot \
 			mtools-native:do_populate_sysroot \
