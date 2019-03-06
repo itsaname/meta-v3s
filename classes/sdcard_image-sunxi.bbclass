@@ -22,17 +22,14 @@ BOOTDD_VOLUME_ID ?= "${MACHINE}"
 # Boot partition size [in KiB]
 BOOT_SPACE ?= "6144"
 
-#FANNING_ROOTFS_SIZE = "50000"
-#ROOTFS_SIZE="10000"
+
 # First partition begin at sector 2048 : 2048*1024 = 2097152
 IMAGE_ROOTFS_ALIGNMENT = "2048"
 
 # Use an uncompressed ext4 by default as rootfs
 SDIMG_ROOTFS_TYPE ?= "ext4"
 SDIMG_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
-#####################################################
 
-#####################################################
 do_image_sunxi_sdimg[depends] += " \
 			parted-native:do_populate_sysroot \
 			mtools-native:do_populate_sysroot \
@@ -46,7 +43,7 @@ SDIMG = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.sunxi-sdimg.img"
 
 IMAGE_CMD_sunxi-sdimg () {
 
-	#SDIMG=$1
+
 
 
 
@@ -68,7 +65,7 @@ IMAGE_CMD_sunxi-sdimg () {
 	echo "BOOT_SPACE_ALIGNED:${BOOT_SPACE_ALIGNED}"
         BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE_ALIGNED} - ${BOOT_SPACE_ALIGNED} % ${IMAGE_ROOTFS_ALIGNMENT})
         echo "BOOT_SPACE_ALIGNED:${BOOT_SPACE_ALIGNED}"
-	#ROOTFS_SIZE=`du -bks ${SDIMG_ROOTFS} | awk '{print $1}'`
+	ROOTFS_SIZE=`du -bks ${SDIMG_ROOTFS} | awk '{print $1}'`
 
         # Round up RootFS size to the alignment size as well
 	ROOTFS_SIZE_ALIGNED=$(expr ${ROOTFS_SIZE} + ${IMAGE_ROOTFS_ALIGNMENT} - 1)
@@ -81,11 +78,6 @@ IMAGE_CMD_sunxi-sdimg () {
         dd if=/dev/zero of=${SDIMG} bs=1024 count=0 seek=${SDIMG_SIZE}
 
 
-	####################################################################
-	#mkfs.${SDIMG_ROOTFS_TYPE} -F ${SDIMG} -d ${IMAGE_ROOTFS}
-	#cp ${SDIMG} ${SDIMG_ROOTFS}
-	####################################################################
-
 
 	# Create partition table
 	parted -s ${SDIMG} mklabel msdos
@@ -93,8 +85,8 @@ IMAGE_CMD_sunxi-sdimg () {
 	parted -s ${SDIMG} unit KiB mkpart primary fat32 ${IMAGE_ROOTFS_ALIGNMENT} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT})
 	parted -s ${SDIMG} set 1 boot on
 	# Create rootfs partition to the end of disk
-	parted -s ${SDIMG} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
-        parted ${SDIMG} print
+	parted -s ${SDIMG} -- unit KiB mkpart primary ${SDIMG_ROOTFS_TYPE} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
+  parted ${SDIMG} print
 
 	# Create a vfat image with boot files
 	BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDIMG} unit b print | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 512 /2 }')
