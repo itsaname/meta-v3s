@@ -15,7 +15,7 @@ PR = "r0"
 
 SRCREV_pn-${PN} = "${AUTOREV}"
 
-SRC_URI += "git://github.com/ninhnguyennhut/linux-4.14.x.git;protocol=https"
+SRC_URI += "git://github.com/itsaname/linux-4.14.x.git;protocol=https"
 
 S = "${WORKDIR}/git/"
 LDFLAGS = ""
