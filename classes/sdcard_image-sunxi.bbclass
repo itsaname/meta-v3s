@@ -18,7 +18,8 @@ IMAGE_TYPEDEP_sunxi-sdimg = "${SDIMG_ROOTFS_TYPE}"
 
 # Boot partition volume id
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
-
+# SDIMG_SIZE(KiB)
+SD_SIZE ?= "32000"
 # Boot partition size [in KiB]
 BOOT_SPACE ?= "6144"
 
@@ -47,13 +48,13 @@ IMAGE_CMD_sunxi-sdimg () {
 
 
 
-	# Define rootfs partition size as (sdcard_size - bootfs_size - 100MB):
+	# Define rootfs partition size as (sdcard_size - bootfs_size):
 	# - sdcard_size: SDCARD_SIZE_TARGET in KiB
 	# - bootfs_size: BOOT_SPACE in KiB
 	# - 100MB:       space needed to reflect the fact that actual SD cards
 	#                typically have a smaller capacity than advertised
-	SDCARD_SIZE_TARGET=32000
-	ROOTFS_SIZE_TARGET=$(expr ${SDCARD_SIZE_TARGET} - ${BOOT_SPACE} - 1)
+	SDCARD_SIZE_TARGET=${SD_SIZE}
+	ROOTFS_SIZE_TARGET=$(expr ${SDCARD_SIZE_TARGET} - ${BOOT_SPACE} )
 	ROOTFS_SIZE=`du -bks ${SDIMG_ROOTFS} | awk '{print $1}'`
 	if [ $ROOTFS_SIZE -lt $ROOTFS_SIZE_TARGET ]; then
 		ROOTFS_SIZE=$ROOTFS_SIZE_TARGET
