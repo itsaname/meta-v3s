@@ -24,7 +24,7 @@ WIFI_SUPPORT = " \
     linux-firmware-rtl8192ce \
     linux-firmware-rtl8192cu \
     linux-firmware-rtl8192su \
-    linux-firmware-rtl8723bs \
+    linux-firmware-rtl8723bu \
     linux-firmware-wl18xx \
     wireless-tools \
     wpa-supplicant \
