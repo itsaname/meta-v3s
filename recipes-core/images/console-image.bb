@@ -1,5 +1,4 @@
-SUMMARY = "A console development image with some C/C++ dev tools"
-HOMEPAGE = "http://www.jumpnowtek.com"
+
 
 IMAGE_FEATURES += "package-management"
 
@@ -24,7 +23,7 @@ WIFI_SUPPORT = " \
     linux-firmware-rtl8192ce \
     linux-firmware-rtl8192cu \
     linux-firmware-rtl8192su \
-    linux-firmware-rtl8723bu \
+    linux-firmware-rtl8723 \
     linux-firmware-wl18xx \
     wireless-tools \
     wpa-supplicant \
@@ -77,7 +76,6 @@ EXTRA_TOOLS_INSTALL = " \
     iproute2 \
     iptables \
     less \
-    nano \
     netcat \
     parted \
     procps \
