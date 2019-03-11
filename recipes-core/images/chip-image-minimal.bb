@@ -33,16 +33,9 @@ DEV_EXTRAS = " \
 
 EXTRA_TOOLS_INSTALL = " \
     ethtool \
-    findutils \
     i2c-tools \
-    iperf3 \
-    iproute2 \
     iptables \
     netcat \
-    parted \
-    procps \
-    sysfsutils \
-    tcpdump \
     tree \
     unzip \
     util-linux \
