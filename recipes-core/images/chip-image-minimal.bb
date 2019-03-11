@@ -11,7 +11,6 @@ IMAGE_FEATURES += "package-management"
 inherit image
 
 CORE_OS += " \
-
 "
 
 KERNEL_EXTRA_INSTALL = " \
