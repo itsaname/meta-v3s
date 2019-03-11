@@ -10,7 +10,7 @@ IMAGE_FEATURES += "package-management"
 
 inherit image
 
-CORE_OS = " \
+CORE_OS += " \
 
 "
 
