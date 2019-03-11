@@ -5,3 +5,14 @@ require recipes-core/images/core-image-minimal.bb
 
 IMAGE_INSTALL += " \
 "
+KERNEL_EXTRA_INSTALL = " \
+    kernel-modules \
+"
+
+WIFI_SUPPORT = " \
+    crda \
+    iw \
+    linux-firmware-rtl8723 \
+    wireless-tools \
+    wpa-supplicant \
+"
