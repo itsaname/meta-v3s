@@ -33,7 +33,6 @@ DEV_EXTRAS = " \
 EXTRA_TOOLS_INSTALL = " \
     ethtool \
     i2c-tools \
-    iptables \
     netcat \
   "
 
