@@ -21,7 +21,6 @@ WIFI_SUPPORT = " \
     crda \
     iw \
     linux-firmware-rtl8723 \
-    wireless-tools \
     wpa-supplicant \
 "
 
@@ -36,10 +35,6 @@ EXTRA_TOOLS_INSTALL = " \
     i2c-tools \
     iptables \
     netcat \
-    tree \
-    unzip \
-    util-linux \
-    util-linux-blkid \
   "
 
 IMAGE_INSTALL += " \
